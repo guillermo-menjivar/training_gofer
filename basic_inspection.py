@@ -3,8 +3,8 @@ import json
 
 def inspect_relationships(record):
     source_rendered = ""
-    if record["source_ref"].startwith("intrusion-set"):
-        source_rendered = intrusion_keys[record["source_ref"]]
+    if record["source_ref"].startswith("intrusion-set"):
+        source_rendered = intrusion_keys[record["source_ref"]].get("name")
 
     print(
         f"{record["type"]}: {record["source_ref"]} {record["relationship_type"]} {record["target_ref"]}."
