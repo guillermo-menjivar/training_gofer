@@ -9,15 +9,21 @@ def inspect_relationships(record):
         source_description_rendered = intrusion_keys[record["source_ref"]].get(
             "description"
         )
+    elif record["source_ref"].startswith("malware"):
+        source_rendered = malware[record["source_ref"]].get("name")
+        source_description_rendered = malware[record["source_ref"]].get("description")
 
+    print("-----------------")
     print(
         f"{record["type"]}: {record["source_ref"]} {record["relationship_type"]} {record["target_ref"]}."
     )
+    print("-----------------")
     print(f"{source_rendered}: {source_description_rendered}")
 
 
 metrics = {}
 intrusion_keys = {}
+malware = {}
 
 print("we are starting")
 with open("enterprise-attack-17.1.json", "r") as file:
@@ -34,5 +40,10 @@ for obj in objects:
     if obj["type"] == "intrusion-set":
         intrusion_keys[obj["id"]] = obj
 
+    if obj["type"] == "malware":
+        malware[obj["id"]] = obj
+
     if obj["type"] == "relationship":
         inspect_relationships(obj)
+
+print(metrics)
