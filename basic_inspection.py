@@ -12,6 +12,16 @@ def inspect_relationships(record):
     elif record["source_ref"].startswith("malware"):
         source_rendered = malware[record["source_ref"]].get("name")
         source_description_rendered = malware[record["source_ref"]].get("description")
+    elif record["source_ref"].startswith("x-mitre-data-component"):
+        source_rendered = data_component[record["source_ref"]].get("name")
+        source_description_rendered = data_component[record["source_ref"]].get(
+            "description"
+        )
+    elif record["source_ref"].startswith("course-of-action"):
+        source_rendered = course_of_action[record["source_ref"]].get("name")
+        source_description_rendered = course_of_action[record["source_ref"]].get(
+            "description"
+        )
 
     print("-----------------")
     print(
@@ -25,6 +35,7 @@ metrics = {}
 intrusion_keys = {}
 malware = {}
 data_component = {}
+course_of_action = {}
 
 print("we are starting")
 with open("enterprise-attack-17.1.json", "r") as file:
@@ -46,6 +57,9 @@ for obj in objects:
 
     if obj["type"] == "x-mitre-data-component":
         data_component[obj["id"]] = obj
+
+    if obj["type"] == "course-of-action":
+        course_of_action[obj["id"]] = obj
 
     if obj["type"] == "relationship":
         inspect_relationships(obj)
