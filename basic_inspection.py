@@ -24,6 +24,7 @@ def inspect_relationships(record):
 metrics = {}
 intrusion_keys = {}
 malware = {}
+data_component = {}
 
 print("we are starting")
 with open("enterprise-attack-17.1.json", "r") as file:
@@ -42,6 +43,9 @@ for obj in objects:
 
     if obj["type"] == "malware":
         malware[obj["id"]] = obj
+
+    if obj["type"] == "x-mitre-data-component":
+        data_component[obj["id"]] = obj
 
     if obj["type"] == "relationship":
         inspect_relationships(obj)
