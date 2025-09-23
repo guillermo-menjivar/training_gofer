@@ -4,6 +4,10 @@ import json
 def inspect_relationships(record):
     source_rendered = ""
     source_description_rendered = ""
+
+    target_rendered = ""
+    target_description_rendered = ""
+
     if record["source_ref"].startswith("intrusion-set"):
         source_rendered = intrusion_keys[record["source_ref"]].get("name")
         source_description_rendered = intrusion_keys[record["source_ref"]].get(
@@ -23,12 +27,23 @@ def inspect_relationships(record):
             "description"
         )
 
+    if record["target_ref"].startswith("attack-pattern"):
+        print(record)
+        print(attack_patterns.keys())
+        target_rendered = attack_patterns[record["target_ref"]]
+        # target_rendered = attack_patterns[record["target_ref"]].get("name")
+        # target_description_rendered = attack_patterns[record["target_ref"]].get(
+        #    "description"
+        # )
+
     print("-----------------")
     print(
         f"{record["type"]}: {record["source_ref"]} {record["relationship_type"]} {record["target_ref"]}."
     )
     print("-----------------")
-    print(f"{source_rendered}: {source_description_rendered}")
+    print(
+        f"{source_rendered}: {source_description_rendered} {record['relationship_type']} {target_rendered}"
+    )
 
 
 metrics = {}
@@ -36,6 +51,7 @@ intrusion_keys = {}
 malware = {}
 data_component = {}
 course_of_action = {}
+attack_patterns = {}
 
 print("we are starting")
 with open("enterprise-attack-17.1.json", "r") as file:
@@ -60,6 +76,9 @@ for obj in objects:
 
     if obj["type"] == "course-of-action":
         course_of_action[obj["id"]] = obj
+
+    if obj["type"] == "attack-pattern":
+        attack_patterns[obj["id"]] = obj
 
     if obj["type"] == "relationship":
         inspect_relationships(obj)
