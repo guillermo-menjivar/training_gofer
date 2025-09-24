@@ -19,6 +19,11 @@ def extract_mitre_urls(text):
     return re.findall(pattern, text)
 
 
+def replace_url_with_resource(text, url, resource):
+    """Replace a specific URL with a resource string"""
+    return text.replace(url, resource)
+
+
 def inspect_relationships(record):
     source_rendered = ""
     source_description_rendered = ""
@@ -52,6 +57,14 @@ def inspect_relationships(record):
         )
 
     source_urls = extract_mitre_urls(source_description_rendered)
+    if source_urls:
+        for url in source_urls:
+            print(extract_mitre_resource(url))
+            print(
+                replace_url_with_resource(
+                    source_description_rendered, url, extract_mitre_resource(url)
+                )
+            )
 
     print(f"urls collected from source {source_urls}")
 
