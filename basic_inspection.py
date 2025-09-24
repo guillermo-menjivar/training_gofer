@@ -59,11 +59,8 @@ def inspect_relationships(record):
     source_urls = extract_mitre_urls(source_description_rendered)
     if source_urls:
         for url in source_urls:
-            print(extract_mitre_resource(url))
-            print(
-                replace_url_with_resource(
-                    source_description_rendered, url, extract_mitre_resource(url)
-                )
+            source_description_rendered = replace_url_with_resource(
+                source_description_rendered, url, extract_mitre_resource(url)
             )
 
     print(f"urls collected from source {source_urls}")
