@@ -19,9 +19,19 @@ def extract_mitre_urls(text):
     return re.findall(pattern, text)
 
 
-def replace_url_with_resource(text, url, resource):
-    """Replace a specific URL with a resource string"""
-    return text.replace(url, resource)
+def replace_markdown_url_with_resource(text, url, resource):
+    """Replace markdown [text](url) with text (resource)"""
+    # Pattern: [anything](url) -> text (resource)
+    import re
+
+    # Escape the URL for regex matching
+    escaped_url = re.escape(url)
+
+    # Find [text](url) pattern and replace with text (resource)
+    pattern = rf"\[([^\]]+)\]\({escaped_url}\)"
+    replacement = rf"\1 ({resource})"
+
+    return re.sub(pattern, replacement, text)
 
 
 def inspect_relationships(record):
@@ -59,28 +69,26 @@ def inspect_relationships(record):
     source_urls = extract_mitre_urls(source_description_rendered)
     if source_urls:
         for url in source_urls:
-            source_description_rendered = replace_url_with_resource(
+            source_description_rendered = replace_markdown_url_with_resource(
                 source_description_rendered, url, extract_mitre_resource(url)
             )
 
     target_urls = extract_mitre_urls(target_description_rendered)
     if target_urls:
         for url in target_urls:
-            target_description_rendered = replace_url_with_resource(
+            target_description_rendered = replace_markdown_url_with_resource(
                 target_description_rendered, url, extract_mitre_resource(url)
             )
 
     print("-------NEW ENTRY----------")
     print(f"{source_rendered}: {source_description_rendered}")
-    print("#######END OF SOURCE ##########")
     print()
     print()
     print(f"{target_rendered}: {target_description_rendered}")
-    print("#######END OF TARGET##########")
     print()
     print()
     print(f"{source_rendered} {record['relationship_type']} {target_rendered}")
-    print("----END OF ENTRY-----")
+    print("-------END ENTRY----------")
 
 
 metrics = {}
