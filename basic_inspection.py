@@ -51,9 +51,7 @@ def inspect_relationships(record):
             "description"
         )
 
-    source_urls = extract_mitre_urls(
-        data_component[record["source_ref"]].get("description")
-    )
+    source_urls = extract_mitre_urls(source_description_rendered)
 
     print(f"urls collected from source {source_urls}")
 
