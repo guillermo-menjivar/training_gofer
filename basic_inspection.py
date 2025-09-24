@@ -63,6 +63,13 @@ def inspect_relationships(record):
                 source_description_rendered, url, extract_mitre_resource(url)
             )
 
+    target_urls = extract_mitre_urls(target_description_rendered)
+    if target_urls:
+        for url in target_urls:
+            target_description_rendered = replace_url_with_resource(
+                target_description_rendered, url, extract_mitre_resource(url)
+            )
+
     print("-------NEW ENTRY----------")
     print(f"{source_rendered}: {source_description_rendered}")
     print("#######END OF SOURCE ##########")
