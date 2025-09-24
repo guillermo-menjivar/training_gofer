@@ -63,8 +63,6 @@ def inspect_relationships(record):
                 source_description_rendered, url, extract_mitre_resource(url)
             )
 
-    print(f"urls collected from source {source_urls}")
-
     print("-----------------")
     print(f"{source_rendered}: {source_description_rendered}")
     print("#################")
@@ -75,7 +73,6 @@ def inspect_relationships(record):
     print()
     print()
     print(f"{source_rendered} {record['relationship_type']} {target_rendered}")
-    print(record)
     print("-----*********")
 
 
