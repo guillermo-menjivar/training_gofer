@@ -28,13 +28,10 @@ def inspect_relationships(record):
         )
 
     if record["target_ref"].startswith("attack-pattern"):
-        print(record)
-        print(attack_patterns.keys())
-        target_rendered = attack_patterns[record["target_ref"]]
-        # target_rendered = attack_patterns[record["target_ref"]].get("name")
-        # target_description_rendered = attack_patterns[record["target_ref"]].get(
-        #    "description"
-        # )
+        target_rendered = attack_patterns[record["target_ref"]].get("name")
+        target_description_rendered = attack_patterns[record["target_ref"]].get(
+            "description"
+        )
 
     print("-----------------")
     print(
@@ -42,7 +39,7 @@ def inspect_relationships(record):
     )
     print("-----------------")
     print(
-        f"{source_rendered}: {source_description_rendered} {record['relationship_type']} {target_rendered}"
+        f"{source_rendered}: {source_description_rendered} {record['relationship_type']} {target_rendered}: {target_description_rendered}"
     )
 
 
