@@ -1,4 +1,13 @@
 import json
+import re
+
+
+def extract_mitre_resource(url):
+    """Extract MITRE ID from attack.mitre.org URLs"""
+    if not url:
+        return None
+    match = re.search(r"/([TSGM]A?\d{4}(?:\.\d{3})?)", url)
+    return match.group(1) if match else None
 
 
 def inspect_relationships(record):
