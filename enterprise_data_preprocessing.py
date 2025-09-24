@@ -21,9 +21,6 @@ def extract_mitre_urls(text):
 
 def replace_markdown_url_with_resource(text, url, resource):
     """Replace markdown [text](url) with text (resource)"""
-    # Pattern: [anything](url) -> text (resource)
-    import re
-
     # Escape the URL for regex matching
     escaped_url = re.escape(url)
 
@@ -81,14 +78,8 @@ def inspect_relationships(record):
             )
 
     print("-------NEW ENTRY----------")
-    print(f"{source_rendered}: {source_description_rendered}")
-    print()
-    print()
-    print(f"{target_rendered}: {target_description_rendered}")
-    print()
-    print()
-    print(f"{source_rendered} {record['relationship_type']} {target_rendered}")
-    print("-------END ENTRY----------")
+    sample = f"{source_rendered}: {source_description_rendered}\n\n{target_rendered}: {target_description_rendered}\n\n{source_rendered} {record['relationship_type']} {target_rendered}"
+    print(sample)
 
 
 metrics = {}
