@@ -35,9 +35,11 @@ def inspect_relationships(record):
 
     print("-----------------")
     print(f"{source_rendered}: {source_description_rendered}")
+    print("#################")
     print()
     print()
     print(f"{target_rendered}: {target_description_rendered}")
+    print("#################")
     print()
     print()
     print(f"{source_rendered} {record['relationship_type']} {target_rendered}")
