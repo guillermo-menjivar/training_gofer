@@ -34,13 +34,10 @@ def inspect_relationships(record):
         )
 
     print("-----------------")
-    print(
-        f"{record["type"]}: {record["source_ref"]} {record["relationship_type"]} {record["target_ref"]}."
-    )
-    print("-----------------")
-    print(
-        f"{source_rendered}: {source_description_rendered} {record['relationship_type']} {target_rendered}: {target_description_rendered}"
-    )
+    print(f"{source_rendered}: {source_description_rendered}")
+    print(f"{target_rendered}: {target_description_rendered}")
+    print(f"{source_rendered} {record['relationship_type']} {target_rendered}")
+    print("-----*********")
 
 
 metrics = {}
