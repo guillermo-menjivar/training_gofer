@@ -10,6 +10,15 @@ def extract_mitre_resource(url):
     return match.group(1) if match else None
 
 
+def extract_mitre_urls(text):
+    """Extract MITRE URLs that match techniques or software patterns"""
+    if not text:
+        return []
+
+    pattern = r"https://attack\.mitre\.org/(?:techniques|software)/[^\s\)]+"
+    return re.findall(pattern, text)
+
+
 def inspect_relationships(record):
     source_rendered = ""
     source_description_rendered = ""
@@ -41,6 +50,12 @@ def inspect_relationships(record):
         target_description_rendered = attack_patterns[record["target_ref"]].get(
             "description"
         )
+
+    source_urls = extract_mitre_urls(
+        data_component[record["source_ref"]].get("description")
+    )
+
+    print(f"urls collected from source {source_urls}")
 
     print("-----------------")
     print(f"{source_rendered}: {source_description_rendered}")
