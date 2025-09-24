@@ -40,7 +40,6 @@ def inspect_relationships(record):
     print(f"{target_rendered}: {target_description_rendered}")
     print()
     print()
-    print("90909090909909")
     print(f"{source_rendered} {record['relationship_type']} {target_rendered}")
     print(record)
     print("-----*********")
