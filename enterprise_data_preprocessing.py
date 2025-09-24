@@ -15,7 +15,9 @@ def extract_mitre_urls(text):
     if not text:
         return []
 
-    pattern = r"https://attack\.mitre\.org/(?:techniques|software|groups)/[^\s\)]+"
+    pattern = (
+        r"https://attack\.mitre\.org/(?:techniques|software|groups|tactics)/[^\s\)]+"
+    )
     return re.findall(pattern, text)
 
 
