@@ -174,6 +174,9 @@ def main():
     print(metrics)
 
 
+if __name__ == "__main__":
+    main()
+
 # metrics = {}
 # intrusion_keys = {}
 # malware = {}
