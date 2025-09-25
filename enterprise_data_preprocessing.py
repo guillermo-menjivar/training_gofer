@@ -4,6 +4,14 @@ import sys
 import argparse
 
 
+metrics = {}
+intrusion_keys = {}
+malware = {}
+data_component = {}
+course_of_action = {}
+attack_patterns = {}
+
+
 def get_filename_from_subcommand(subcommand: str) -> str:
     """Map subcommand to corresponding JSON filename"""
     file_mapping = {
@@ -115,12 +123,6 @@ def main():
     filename = get_filename_from_subcommand(args.subcommand)
 
     # Initialize your data structures
-    metrics = {}
-    intrusion_keys = {}
-    malware = {}
-    data_component = {}
-    course_of_action = {}
-    attack_patterns = {}
 
     print(f"Processing {args.subcommand} ATT&CK data from {filename}")
     print("We are starting")
