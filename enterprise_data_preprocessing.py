@@ -105,7 +105,10 @@ def inspect_relationships(record):
             )
 
     sample = f"{source_rendered}: {source_description_rendered}\n\n{target_rendered}: {target_description_rendered}\n\n{source_rendered} {record['relationship_type']} {target_rendered}"
-    return sample
+    return {
+        "relationship_description": sample,
+        "relationship_type": record["relationship_type"],
+    }
 
 
 def main():
@@ -167,7 +170,7 @@ def main():
             sample = inspect_relationships(
                 obj
             )  # Note: you'll need to define this function
-            samples.append(sample)
+            samples.append(sample["relationship_description"])
             print(sample)
 
     # json_list = json.dumps(samples)
