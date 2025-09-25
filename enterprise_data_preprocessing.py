@@ -168,8 +168,8 @@ def main():
             samples.append(sample)
             print(sample)
 
-    json_list = json.dumps(samples)
-    print(json_list[:2])  # Print first 2 characters
+    # json_list = json.dumps(samples)
+    print(samples[:2])  # Print first 2 characters
 
     print(metrics)
 
