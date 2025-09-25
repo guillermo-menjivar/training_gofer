@@ -111,7 +111,23 @@ def inspect_relationships(record):
     }
 
 
+def update_relationship_metrics(relationship_type: str, metrics_dict: dict) -> None:
+    """
+    Update the relationship type metrics counter.
+
+    Args:
+        relationship_type: The type of relationship as a string
+        metrics_dict: Dictionary to store the metrics (key: relationship_type, value: count)
+    """
+    if relationship_type in metrics_dict:
+        metrics_dict[relationship_type] += 1
+    else:
+        metrics_dict[relationship_type] = 1
+
+
 def main():
+
+    relationship_types_metrics = {}
     # Set up argument parser
     parser = argparse.ArgumentParser(description="Process MITRE ATT&CK framework data")
     parser.add_argument(
