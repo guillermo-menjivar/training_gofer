@@ -161,6 +161,8 @@ def main():
     objects = data.get("objects")
     samples = []
 
+    relationship_metrics = {}
+
     for obj in objects:
         if obj["type"] not in metrics.keys():
             metrics[obj["type"]] = 1
@@ -187,7 +189,9 @@ def main():
                 obj
             )  # Note: you'll need to define this function
             samples.append(sample["relationship_description"])
-            print(sample)
+            update_relationship_metrics(
+                sample["relationship_type"], relationship_metrics
+            )
 
     # json_list = json.dumps(samples)
     print(samples[:2])  # Print first 2 characters
@@ -195,6 +199,8 @@ def main():
     print(metrics)
     print(len(samples))
     print("number of relationships...")
+    print("metrics on relatishion distribution")
+    print(relationship_metrics)
 
     print("saving output into a file")
     output_filename = f"relation_{args.subcommand}.json"
