@@ -12,6 +12,55 @@ course_of_action = {}
 attack_patterns = {}
 
 
+MITRE_RELATIONSHIP_SCORES = {
+    # Structural/Hierarchical Relationships (Strongest)
+    "subtechnique-of": 0.85,
+    # Strong parent-child hierarchy. T1055.001 is literally a subset of T1055.
+    # Direct taxonomic relationship with clear semantic inheritance.
+    # 470 instances - relatively controlled and high-confidence connections.
+    "revoked-by": 0.90,
+    # Version control replacement. Old technique superseded by updated version.
+    # Essentially the same concept with refinements or corrections.
+    # 140 instances - rare but represents strong conceptual continuity.
+    # Attribution Relationships (High Confidence)
+    "attributed-to": 0.75,
+    # Campaign definitively linked to threat actor/group.
+    # Only 23 instances - MITRE's high confidence threshold for attribution.
+    # When this relationship exists, it represents strong intelligence assessment.
+    # Behavioral Relationships (Core Operations)
+    "uses": 0.70,
+    # Actor/malware/campaign actively employs technique.
+    # 16,241 instances - the backbone of ATT&CK behavioral intelligence.
+    # Represents observed/assessed operational behavior, not definitional.
+    # Defensive Relationships (Response-oriented)
+    "mitigates": 0.60,
+    # Mitigation/countermeasure reduces effectiveness of technique.
+    # 1,421 instances - important for defense but conceptually indirect.
+    # Different object types (defensive vs offensive) with functional relationship.
+    "detects": 0.55,
+    # Data source/method can identify technique execution.
+    # 2,116 instances - valuable for detection engineering.
+    # Weakest semantic similarity - detection capability vs attack behavior.
+    # Important operationally but conceptually distinct domains.
+}
+
+"""
+Scoring Logic Summary:
+- 0.90+: Same concept, different versions (revoked-by)
+- 0.80-0.89: Direct hierarchical relationships (subtechnique-of)
+- 0.70-0.79: High-confidence attributions and core behavioral links (attributed-to, uses)
+- 0.60-0.69: Functional defensive relationships (mitigates)
+- 0.50-0.59: Detection/capability relationships (detects)
+
+Design Principles:
+1. Structural relationships score higher than behavioral
+2. Behavioral relationships score higher than defensive
+3. Rare, high-confidence relationships (attributed-to) score higher than common ones
+4. Frequency doesn't determine strength - semantic connection does
+5. Same-domain relationships generally stronger than cross-domain
+"""
+
+
 def get_filename_from_subcommand(subcommand: str) -> str:
     """Map subcommand to corresponding JSON filename"""
     file_mapping = {
