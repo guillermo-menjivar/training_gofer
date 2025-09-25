@@ -7,9 +7,9 @@ import argparse
 def get_filename_from_subcommand(subcommand: str) -> str:
     """Map subcommand to corresponding JSON filename"""
     file_mapping = {
-        "enterprise": "enterprise-attack-17.0.1.json",
-        "ics": "ics-attack-17.0.1.json",
-        "mobile": "mobile-attack-17.0.1.json",
+        "enterprise": "enterprise-attack-17.1.json",
+        "ics": "ics-attack-17.1.json",
+        "mobile": "mobile-attack-17.1.json",
     }
 
     if subcommand not in file_mapping:
