@@ -77,9 +77,8 @@ def inspect_relationships(record):
                 target_description_rendered, url, extract_mitre_resource(url)
             )
 
-    print("-------NEW ENTRY----------")
     sample = f"{source_rendered}: {source_description_rendered}\n\n{target_rendered}: {target_description_rendered}\n\n{source_rendered} {record['relationship_type']} {target_rendered}"
-    print(sample)
+    return sample
 
 
 metrics = {}
@@ -94,6 +93,7 @@ with open("enterprise-attack-17.1.json", "r") as file:
     data = json.load(file)
 
 objects = data.get("objects")
+samples = []
 
 for obj in objects:
     if obj["type"] not in metrics.keys():
@@ -117,6 +117,12 @@ for obj in objects:
         attack_patterns[obj["id"]] = obj
 
     if obj["type"] == "relationship":
-        inspect_relationships(obj)
+
+        sample = inspect_relationships(obj)
+        samples.append(sample)
+
+json_list = json.dumps(samples)
+print(json_list)
+
 
 print(metrics)
