@@ -174,6 +174,18 @@ def main():
     print(samples[:2])  # Print first 2 characters
 
     print(metrics)
+    print(len(samples))
+    print("number of relationships...")
+
+    print("saving output into a file")
+    output_filename = f"relation_{args.subcommand}.json"
+    try:
+        with open(output_filename, "w") as output_file:
+            json.dump(samples, output_file, indent=2)
+        print(f"Successfully saved {len(samples)} relationships to '{output_filename}'")
+    except IOError as e:
+        print(f"Error saving to file '{output_filename}': {e}")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
